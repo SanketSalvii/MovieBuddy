@@ -8,6 +8,7 @@ import movieService from '../Services/MovieService';
 const WatchList = () => {
   const [watchlist, setWatchlist] = useState([]);
   const [movies, setMovies] = useState([]);
+  const [tmdbmovies, setTmdbmovies] = useState([]);
 
   const removeFromWatchlist = (title) => {
     const index = watchlist.findIndex(item => item === title);
@@ -32,11 +33,18 @@ const WatchList = () => {
 
     }
     async function fetchMovies() {
-
+      console.log("--->")
       const data = await movieService.fetchMovies();
       setMovies(data)
-      const watchlistDetails = data.filter(value => storedWatchlist.includes(value.title))
+      console.log("stired",storedWatchlist)
+      const watchlistDetails = data.filter(value => storedWatchlist?.includes(value.title))
       setMovies(watchlistDetails);
+      const reqObj = {
+        page : 1
+      }
+      const tmdbData = await movieService.fetchTMDBMovies(reqObj)
+      setTmdbmovies(tmdbData)
+      console.log("tmdb",tmdbData)
     }
     if (movies.length === 0) {
       fetchMovies();
@@ -60,13 +68,16 @@ const WatchList = () => {
                 <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
                   {
                     watchlist.includes(movie.title) ?
-                      <a onClick={() => removeFromWatchlist(movie.title)} class="btn btn-outline-secondary" style={{ color: 'black' }}>Remove From watchlist</a> :
-                      <a onClick={() => addToWatchlist(movie.title)} class="btn btn-primary">Add to watchlist</a>
+                      <a onClick={() => removeFromWatchlist(movie.title)} className="btn btn-outline-secondary" style={{ color: 'black' }}>Remove From watchlist</a> :
+                      <a onClick={() => addToWatchlist(movie.title)} className="btn btn-primary">Add to watchlist</a>
                   }
                 </div>
               </div>
             </div>
           )))}
+      </div>
+      <div className="container">
+
       </div>
     </>
   );

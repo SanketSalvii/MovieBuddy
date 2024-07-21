@@ -42,8 +42,8 @@ const SearchMovies = ({ movies }) => {
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1rem' }}>
                 {
                   watchlist.includes(movie.title) ?
-                    <a onClick={() => removeFromWatchlist(movie.title)} class="btn btn-outline-secondary" style={{ color: 'black' }}>Remove From watchlist</a> :
-                    <a onClick={() => addToWatchlist(movie.title)} class="btn btn-primary">Add to watchlist</a>
+                    <a onClick={() => removeFromWatchlist(movie.title)} className="btn btn-outline-secondary" style={{ color: 'black' }}>Remove From watchlist</a> :
+                    <a onClick={() => addToWatchlist(movie.title)} className="btn btn-primary">Add to watchlist</a>
                 }
               </div>
             </div>
