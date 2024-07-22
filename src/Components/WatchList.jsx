@@ -8,7 +8,6 @@ import movieService from '../Services/MovieService';
 const WatchList = () => {
   const [watchlist, setWatchlist] = useState([]);
   const [movies, setMovies] = useState([]);
-  const [tmdbmovies, setTmdbmovies] = useState([]);
 
   const removeFromWatchlist = (title) => {
     const index = watchlist.findIndex(item => item === title);
@@ -39,12 +38,6 @@ const WatchList = () => {
       console.log("stired",storedWatchlist)
       const watchlistDetails = data.filter(value => storedWatchlist?.includes(value.title))
       setMovies(watchlistDetails);
-      const reqObj = {
-        page : 1
-      }
-      const tmdbData = await movieService.fetchTMDBMovies(reqObj)
-      setTmdbmovies(tmdbData)
-      console.log("tmdb",tmdbData)
     }
     if (movies.length === 0) {
       fetchMovies();
@@ -75,9 +68,6 @@ const WatchList = () => {
               </div>
             </div>
           )))}
-      </div>
-      <div className="container">
-
       </div>
     </>
   );
