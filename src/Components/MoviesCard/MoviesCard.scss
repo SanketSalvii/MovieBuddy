@@ -1,0 +1,44 @@
+.movie-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  justify-content: space-evenly;
+  font-family: "ui-monospace";
+  .movie {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    .card-img-top {
+      width: 12rem;
+      height: 18rem;
+      border-radius: 1rem;
+    }
+    .circle-with-dot {
+      width: 1.5rem;
+      height: 1.5rem;
+      border-radius: 50%;
+      background-color: #fff;
+      position: absolute;
+      opacity: 70%;
+      right: 8px;
+      top: 8px;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    .saved {
+      background-image: url("../../../public/images/saved.svg");
+    }
+    .not-saved {
+      background-image: url("../../../public/images/unsaved.svg");
+    }
+    .title {
+      width: 12rem;
+      white-space: break-spaces;
+      word-break: break-word;
+    }
+  }
+}

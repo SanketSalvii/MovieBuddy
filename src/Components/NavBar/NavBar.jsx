@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import SearchMovies from './SearchMovies';
+import SearchMovies from '../SearchMovies/SearchMovies';
 import { useLocation, NavLink } from 'react-router-dom';
-import movieService from '../Services/MovieService';
+import movieService from '../../Services/MovieService';
+import './NavBar.scss';
 
 const NavBar = () => {
   const [movies, setMovies] = useState([]);
@@ -39,7 +40,7 @@ const NavBar = () => {
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2)', position: 'fixed', zIndex: '1', width: '100%', top: '0' }}>
+      <nav className="navbar navbar-expand-lg bg-body-tertiary" >
         <div className="container-fluid">
           <NavLink className="navbar-brand" to="">Movies.Com</NavLink>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +62,7 @@ const NavBar = () => {
         </div>
       </nav>
       {pathname === '/' ? (
-        isFound ? <SearchMovies movies={foundMovies.length > 0 ? foundMovies : movies} /> : <p style={{ margin: '5rem' }}>No records found</p>
+        isFound ? <SearchMovies movies={foundMovies.length > 0 ? foundMovies : movies} /> : <p className='no-records-found'>No records found</p>
       ) : (
         ''
       )}

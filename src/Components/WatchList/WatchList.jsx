@@ -1,43 +1,52 @@
 // src/components/Watchlist.js
-import React, { useState, useEffect } from 'react';
-import data from './data.json';
-import movieService from '../Services/MovieService';
-
-
+import React, { useState, useEffect } from "react";
+import data from "../data.json";
+import movieService from "../../Services/MovieService";
+import "./WatchList.scss";
+import "../MoviesCard/MoviesCard";
+import MoviesCard from "../MoviesCard/MoviesCard";
 
 const WatchList = () => {
   const [watchlist, setWatchlist] = useState([]);
   const [movies, setMovies] = useState([]);
 
-  const removeFromWatchlist = (title) => {
-    const index = watchlist.findIndex(item => item === title);
+  const addToWatchlist = (item) => {
+    item.watchlist = true;
+    console.log("watchlist", item);
+    console.log("watchlist", watchlist);
+    if (!watchlist.find((movie) => movie.id === item.id)) {
+      const updatedArray = [...watchlist, item];
+      setWatchlist(updatedArray);
+      localStorage.setItem("watchlist", JSON.stringify(updatedArray));
+    } else {
+      console.log("already present in watclist");
+    }
+  };
+
+  const removeFromWatchlist = (item) => {
+    console.log("item", item);
+    item.watchlist = false;
+    const index = watchlist.findIndex((movie) => item.id === movie.id);
+    console.log("watchlist", watchlist);
+    console.log("index", index);
     if (index !== -1) {
       const updatedArray = [...watchlist];
       updatedArray.splice(index, 1);
       setWatchlist(updatedArray);
-      localStorage.setItem('watchlist', JSON.stringify(updatedArray));
+      localStorage.setItem("watchlist", JSON.stringify(updatedArray));
+      console.log("updatedArray", updatedArray);
+    } else {
+      console.log("Not in watchlist");
     }
-  }
-
-  const addToWatchlist = (title) => {
-    const updatedArray = [...watchlist, title];
-    setWatchlist(updatedArray);
-    localStorage.setItem('watchlist', JSON.stringify(updatedArray));
-  }
-
+  };
   useEffect(() => {
-    const storedWatchlist = localStorage.getItem('watchlist');
+    const storedWatchlist = localStorage.getItem("watchlist");
     if (storedWatchlist) {
       setWatchlist(JSON.parse(storedWatchlist));
-
     }
     async function fetchMovies() {
-      console.log("--->")
-      const data = await movieService.fetchMovies();
-      setMovies(data)
-      console.log("stired",storedWatchlist)
-      const watchlistDetails = data.filter(value => storedWatchlist?.includes(value.title))
-      setMovies(watchlistDetails);
+      console.log("--->");
+      setMovies(JSON.parse(storedWatchlist));
     }
     if (movies.length === 0) {
       fetchMovies();
@@ -46,7 +55,7 @@ const WatchList = () => {
 
   return (
     <>
-      <div className="container" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '5rem', marginBottom: '2rem', justifyContent: 'space-evenly' }}>
+      {/* <div className="container" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '5rem', marginBottom: '2rem', justifyContent: 'space-evenly' }}>
         {watchlist.length === 0 ? 'No Watchlist Data' :
           (movies.map((movie, index) => (
             <div key={index} className="card" style={{ width: '18rem' }}>
@@ -68,6 +77,16 @@ const WatchList = () => {
               </div>
             </div>
           )))}
+      </div> */}
+      <div className="watchlist container">
+        <div className="watchlist-header">
+          <h2 className="watchlist-movies">My Watchlist</h2>
+        </div>
+        <MoviesCard
+          moviesData={movies}
+          addToWatchlist={addToWatchlist}
+          removeFromWatchlist={removeFromWatchlist}
+        />
       </div>
     </>
   );

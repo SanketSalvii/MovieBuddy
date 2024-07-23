@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Watchlist from './Components/WatchList';
-import NavBar from './Components/NavBar';
+import Watchlist from './Components/WatchList/WatchList';
+import NavBar from './Components/NavBar/NavBar';
 
 
 function App() {
