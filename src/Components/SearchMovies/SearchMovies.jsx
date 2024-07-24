@@ -3,14 +3,12 @@ import movieService from "../../Services/MovieService";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import "./SearchMovies.scss";
 
-const SearchMovies = ({ movies }) => {
+const SearchMovies = ({ searchTerm }) => {
   const [tmdbmovies, setTmdbmovies] = useState([]);
   const [watchlist, setWatchlist] = useState([]);
 
   const addToWatchlist = (item) => {
     item.watchlist = true;
-    console.log("watchlist", item);
-    console.log("watchlist", watchlist);
     if (!watchlist.find((movie) => movie.id === item.id)) {
       const updatedArray = [...watchlist, item];
       setWatchlist(updatedArray);
@@ -21,23 +19,21 @@ const SearchMovies = ({ movies }) => {
   };
 
   const removeFromWatchlist = (item) => {
-    console.log("item", item);
     item.watchlist = false;
     const index = watchlist.findIndex((movie) => item.id === movie.id);
-    console.log("watchlist", watchlist);
-    console.log("index", index);
     if (index !== -1) {
       const updatedArray = [...watchlist];
       updatedArray.splice(index, 1);
       setWatchlist(updatedArray);
       localStorage.setItem("watchlist", JSON.stringify(updatedArray));
-      console.log("updatedArray", updatedArray);
     } else {
       console.log("Not in watchlist");
     }
   };
 
   useEffect(() => {
+    // console.log("movies",searchText)
+    console.log("movies",searchTerm)
     const watchlist = JSON.parse(localStorage.getItem("watchlist"));
     if (watchlist) {
       setWatchlist(watchlist);
@@ -46,9 +42,7 @@ const SearchMovies = ({ movies }) => {
       const reqObj = {
         page: 1,
       };
-      console.log("watchlist", watchlist);
       const tmdbData = await movieService.fetchTMDBMovies(reqObj);
-      console.log("watchlist", watchlist);
       tmdbData.results.forEach((item) => {
         if (watchlist) {
           if (watchlist.some((movie) => movie.id === item.id)) {
@@ -61,7 +55,6 @@ const SearchMovies = ({ movies }) => {
         }
       });
       setTmdbmovies(tmdbData.results);
-      console.log("tmdb", tmdbData);
     };
     if (tmdbmovies.length === 0) {
       fetchtmdbMovies();
@@ -79,6 +72,7 @@ const SearchMovies = ({ movies }) => {
           addToWatchlist={addToWatchlist}
           removeFromWatchlist={removeFromWatchlist}
         />
+        
       </div>
     </>
   );

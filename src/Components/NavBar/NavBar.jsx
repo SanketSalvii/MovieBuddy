@@ -1,41 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import SearchMovies from '../SearchMovies/SearchMovies';
-import { useLocation, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import movieService from '../../Services/MovieService';
 import './NavBar.scss';
 
-const NavBar = () => {
-  const [movies, setMovies] = useState([]);
-  const [allmovies, setAllmovies] = useState([]);
+const NavBar = ( {onSearch} ) => {
   const [foundMovies, setFoundMovies] = useState([]);
   const [value, setValue] = useState("");
   const [isFound, setIsFound] = useState(true);
-  const location = useLocation();
-  const { pathname, search, hash } = location;
 
-  const getQuery = (e) => {
+  const getQuery = async (e) => {
     const searchTitle = e.target.value.toLowerCase();
+    // searchText(searchTitle)
+    onSearch(searchTitle)
     setValue(searchTitle);
     setIsFound(true);
 
     if (searchTitle.length > 0) {
-      const filteredMovies = allmovies.filter(movie => movie.title.toLowerCase().includes(searchTitle));
-      setFoundMovies(filteredMovies);
-      setIsFound(filteredMovies.length > 0);
+      // const filteredMovies = allmovies.filter(movie => movie.title.toLowerCase().includes(searchTitle));
+      // const filteredMovies = await movieService.searchMovies({ searchTitle });
+      // console.log("filtered Movies",filteredMovies)
+      // setFoundMovies(filteredMovies.results);
+      // setIsFound(filteredMovies?.results.length > 0);
     } else {
       setFoundMovies([]);
     }
   }
 
   useEffect(() => {
-    async function fetchMovies() {
-      const data = await movieService.fetchMovies();
-      if (movies.length === 0) {
-        setMovies(data.slice(0, 21));
-        setAllmovies(data)
-      }
-    }
-    fetchMovies();
   }, []);
 
   return (
@@ -61,12 +52,6 @@ const NavBar = () => {
           </div>
         </div>
       </nav>
-      {pathname === '/' ? (
-        isFound ? <SearchMovies movies={foundMovies.length > 0 ? foundMovies : movies} /> : <p className='no-records-found'>No records found</p>
-      ) : (
-        ''
-      )}
-
     </>
   );
 };

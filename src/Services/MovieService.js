@@ -16,30 +16,48 @@ const apiService = axios.create({
 const movieService = {
   async fetchMovies() {
     try {
-      const response = await axios.get('/data.json');
+      const response = await axios.get("/data.json");
       return response.data;
     } catch (error) {
-      console.error('Error fetching movies:', error);
+      console.error("Error fetching movies:", error);
       return [];
     }
   },
   async fetchTMDBMovies(reqObj) {
     try {
-      const response = await apiService.get('/discover/movie', {
+      const response = await apiService.get("/discover/movie", {
         params: {
           include_adult: false,
           include_video: false,
-          language: 'en-US',
+          language: "en-US",
           page: reqObj.page,
-          sort_by: 'popularity.desc'
-        }
+          sort_by: "popularity.desc",
+        },
       });
       return response.data;
     } catch (error) {
-      console.error('Error fetching TMDB movies:', error);
+      console.error("Error fetching TMDB movies:", error);
       return [];
     }
-  }
+  },
+  async searchMovies(reqObj) {
+    try {
+      const response = await apiService.get("/search/movie", {
+        params: {
+          query: reqObj.searchTitle,
+          include_adult: false,
+          language: "en-US",
+          page: 1,
+        },
+      });
+      return response.data;
+    } catch (e) {
+      console.error("Error seraching movies",e);
+      return {
+        results: []
+      };
+    }
+  },
 };
 
 export default movieService;

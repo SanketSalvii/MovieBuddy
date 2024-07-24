@@ -18,7 +18,7 @@ const MoviesCard = ({ moviesData, addToWatchlist, removeFromWatchlist }) => {
   });
   return (
     <div className="movie-card-wrapper">
-      {moviesData.length === 0 ? (
+      {!!!moviesData?.length ? (
         <div>{appLevelConstants.NO_RECORDS_FOUND}</div>
       ) : (
         moviesData.map((item, index) => (
