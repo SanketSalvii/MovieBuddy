@@ -32,9 +32,12 @@ const SearchMovies = ({ searchTerm }) => {
   };
 
   useEffect(() => {
-    // console.log("movies",searchText)
     console.log("movies",searchTerm)
     const watchlist = JSON.parse(localStorage.getItem("watchlist"));
+    const watchlistDict = watchlist?.reduce((map,movie)=>{
+      map[movie.id] = movie;
+      return map;
+    },{})
     if (watchlist) {
       setWatchlist(watchlist);
     }
@@ -44,8 +47,8 @@ const SearchMovies = ({ searchTerm }) => {
       };
       const tmdbData = await movieService.fetchTMDBMovies(reqObj);
       tmdbData.results.forEach((item) => {
-        if (watchlist) {
-          if (watchlist.some((movie) => movie.id === item.id)) {
+        if (watchlistDict) {
+          if (watchlistDict[item.id]) {
             item.watchlist = true;
           } else {
             item.watchlist = false;
@@ -56,10 +59,23 @@ const SearchMovies = ({ searchTerm }) => {
       });
       setTmdbmovies(tmdbData.results);
     };
-    if (tmdbmovies.length === 0) {
+    const fetchSearchedMovies = async () => {
+      const searchData = await movieService.searchMovies({ searchTitle: searchTerm });
+      searchData.results.forEach((item) => {
+          if (watchlistDict && watchlistDict[item.id]) {
+            item.watchlist = true;
+          } else {
+            item.watchlist = false;
+          }
+      });
+      setTmdbmovies(searchData.results);
+    };
+    if (searchTerm) {
+      fetchSearchedMovies();
+    } else {
       fetchtmdbMovies();
     }
-  }, []);
+  }, [searchTerm]);
 
   return (
     <>

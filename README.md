@@ -1,8 +1,10 @@
-
+NEW:
+ Integrated TMDB api for movies data.
+OLD :
 # -----Developer Comments----
 
-I was unable to find free api for movies data so instead i have used database which is downloaded from kaggle.
-here is the link of database : https://www.kaggle.com/datasets/shivamb/netflix-shows
+~~I was unable to find free api for movies data so instead i have used database which is downloaded from kaggle.~~
+~~here is the link of database : https://www.kaggle.com/datasets/shivamb/netflix-shows~~
 
 # Getting Started with Create React App
 
