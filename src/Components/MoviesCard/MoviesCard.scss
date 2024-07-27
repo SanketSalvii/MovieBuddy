@@ -12,11 +12,13 @@
     align-items: center;
     position: relative;
     cursor: pointer;
+    transition: transform 0.3s ease;
+    
     .card-img-top {
       width: 12rem;
       height: 18rem;
       border-radius: 1rem;
-    }
+    }     
     .circle-with-dot {
       width: 1.5rem;
       height: 1.5rem;
@@ -40,5 +42,8 @@
       white-space: break-spaces;
       word-break: break-word;
     }
+  }
+  .movie:hover{
+    transform: scale(1.05);
   }
 }

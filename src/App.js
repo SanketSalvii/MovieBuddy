@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Watchlist from './Components/WatchList/WatchList';
 import NavBar from './Components/NavBar/NavBar';
 import SearchMovies from './Components/SearchMovies/SearchMovies';
+import DetailedView from './Components/DetailedView/DetailedView';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<SearchMovies searchTerm={searchTerm} />} />
           <Route path="/watchlist" element={<Watchlist />} />
+          <Route path="/detailscreen" element={<DetailedView />} />
         </Routes>
       </div>
     </Router>

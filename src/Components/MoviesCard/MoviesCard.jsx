@@ -25,7 +25,7 @@ const MoviesCard = ({ moviesData, addToWatchlist, removeFromWatchlist }) => {
           <div key={index} className="">
             <div className="movie">
               <img
-                src={appLevelConstants.TMDB_IMG_URL + item.poster_path}
+                src={item.poster_path ? appLevelConstants.TMDB_IMG_URL + item.poster_path : appLevelConstants.TMDB_DEFAULT_IMG}
                 className="card-img-top"
                 alt={item.poster_path}
               />
