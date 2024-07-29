@@ -1,0 +1,21 @@
+.detail-screen-wrapper{
+    margin-top: 5rem;
+    .detail-screen-body{
+        .detail-screen-bg{
+            width: 100%;
+            opacity: 40%;
+            position:absolute;
+            z-index:-1;
+        }
+        .detail-screen-info-wrapper{
+            display: flex;
+            flex-direction: row;
+            padding: 3rem;
+            .detail-screen-poster{
+                width: 18rem;
+                height: 28rem;
+                border-radius: 1rem;
+            }
+        }
+    }
+}

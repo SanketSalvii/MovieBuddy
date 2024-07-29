@@ -58,6 +58,23 @@ const movieService = {
       };
     }
   },
+  async getMovieDetailsByID(reqObj){
+    try {
+      // https://api.themoviedb.org/3/movie/{movie_id}
+      const response = await apiService.get(`/movie/${reqObj.movieID}`, {
+        params: {
+          include_adult: false,
+          language: "en-US",
+        },
+      });
+      return response.data;
+    } catch (e) {
+      console.error("Error getting movie by id",e);
+      return {
+        results: []
+      };
+    }
+  }
 };
 
 export default movieService;
