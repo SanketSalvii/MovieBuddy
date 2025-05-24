@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import movieService from '../../Services/MovieService';
+// import movieService from '../../Services/MovieService';
 import './NavBar.scss';
 
 const NavBar = ( {onSearch} ) => {
@@ -14,8 +14,10 @@ const NavBar = ( {onSearch} ) => {
     onSearch(searchTitle)
     setValue(searchTitle);
     setIsFound(true);
+    console.log("isFound",isFound)
 
     if (searchTitle.length > 0) {
+      console.log(this.foundMovies)
       // const filteredMovies = allmovies.filter(movie => movie.title.toLowerCase().includes(searchTitle));
       // const filteredMovies = await movieService.searchMovies({ searchTitle });
       // console.log("filtered Movies",filteredMovies)

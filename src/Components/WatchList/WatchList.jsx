@@ -1,7 +1,7 @@
 // src/components/Watchlist.js
 import React, { useState, useEffect } from "react";
-import data from "../data.json";
-import movieService from "../../Services/MovieService";
+// import data from "../data.json";
+// import movieService from "../../Services/MovieService";
 import "./WatchList.scss";
 import "../MoviesCard/MoviesCard";
 import MoviesCard from "../MoviesCard/MoviesCard";
@@ -51,7 +51,7 @@ const WatchList = () => {
     if (movies.length === 0) {
       fetchMovies();
     }
-  }, []);
+  });
 
   return (
     <>
